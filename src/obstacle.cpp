@@ -8,7 +8,7 @@ Obstacle::Obstacle(int startX)
     rect->setPosition(sf::Vector2f(WIDTH + 25 + startX, HEIGHT - 100 - rect->getSize().y));
     rect->setFillColor(sf::Color::White);
     pos = rect->getPosition();
-    resetDist = random(128, 256);
+    resetDist = random(256, 2048);
     rect->setFillColor(sf::Color(random(0, 255), random(0, 255), random(0, 255)));
 }
 
