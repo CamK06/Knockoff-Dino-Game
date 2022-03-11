@@ -16,12 +16,12 @@ public:
     void update();
     void jump();
 
-    int score = 0;
+    float score = 0;
     sf::Vector2f pos;
     Application* parent;
     sf::RectangleShape* m_rect;
+    float yAccel = 0;
 private:
     int jumpPos = 0;
-    float yAccel = 0;
     bool jumping = false;
 };

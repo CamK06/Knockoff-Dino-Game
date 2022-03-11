@@ -41,5 +41,7 @@ void Player::update()
         pos.y = HEIGHT-175;
     
     score++;
+    if(parent != nullptr)
+        score += parent->speed/4;
     m_rect->setPosition(pos);
 }

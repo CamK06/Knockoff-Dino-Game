@@ -9,7 +9,7 @@ Obstacle::Obstacle(int startX)
     rect->setFillColor(sf::Color::White);
     pos = rect->getPosition();
     resetDist = random(256, 2048);
-    rect->setFillColor(sf::Color(random(0, 255), random(0, 255), random(0, 255)));
+    //rect->setFillColor(sf::Color(random(0, 255), random(0, 255), random(0, 255)));
 }
 
 void Obstacle::update()
@@ -18,7 +18,7 @@ void Obstacle::update()
     if (pos.x + 25 <= 0-resetDist) {
         pos.x = WIDTH + 25;
         resetDist = random(256, 1024);
-        rect->setFillColor(sf::Color(random(0, 255), random(0, 255), random(0, 255)));
+        //rect->setFillColor(sf::Color(random(0, 255), random(0, 255), random(0, 255)));
     }
     rect->setPosition(pos);
 
