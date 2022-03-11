@@ -32,7 +32,7 @@ Application::Application()
     updateScore();
     m_gameOverText = new sf::Text;
     m_gameOverText->setFont(*m_comicSans);
-    m_gameOverText->setString("You suck!\nPress space to restart");
+    m_gameOverText->setString("Press space to start");
     m_gameOverText->setCharacterSize(100);
     m_gameOverText->setFillColor(sf::Color::White);
     m_gameOverText->setPosition(WIDTH/2, HEIGHT/2);
@@ -60,6 +60,7 @@ Application::Application()
 
 int Application::run()
 {
+
     // Game loop
     while(m_window->isOpen()) {
         handleEvents();
@@ -71,6 +72,9 @@ int Application::run()
 
 void Application::update()
 {
+    if(!started)
+        return;
+
     // Update game objects
     m_player->update();
     for(int i = 0; i < obstacles.size(); i++)
@@ -113,6 +117,8 @@ void Application::render()
         m_window->draw(*obstacles[i].rect);
     m_player->render(m_window);
     m_window->draw(*m_floorRect);
+    if(!started)
+        m_window->draw(*m_gameOverText);
 
     m_window->display();
 }
@@ -171,8 +177,16 @@ void Application::handleEvents()
         if(event.type == sf::Event::KeyPressed)
             if(event.key.code == sf::Keyboard::Escape)
                 m_window->close();
-            else if(event.key.code == sf::Keyboard::Space)
+            else if(event.key.code == sf::Keyboard::Space) {
+                if(!started) {
+                    started = true;
+                    m_gameOverText->setString("You suck!\nPress space to restart");
+                    sf::FloatRect textSize = m_gameOverText->getLocalBounds();
+                    m_gameOverText->setOrigin(textSize.left + textSize.width/2.0f, textSize.top + textSize.height/2.0f);
+                    m_gameOverText->setPosition(WIDTH/2, HEIGHT/2);
+                }
                 m_player->jump();
+            }
     }
 }
 

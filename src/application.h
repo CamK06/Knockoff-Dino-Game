@@ -6,8 +6,8 @@
 #include "player.h"
 #include "obstacle.h"
 
-#define WIDTH 800
-#define HEIGHT 600
+#define WIDTH 1280
+#define HEIGHT 720
 
 class Obstacle;
 
@@ -22,6 +22,7 @@ public:
     float speed = 10;
     float glidePower = 100;
     bool glideRegenned = true;
+    bool started = false;
 private:
     Player* m_player;
     sf::Font* m_comicSans;

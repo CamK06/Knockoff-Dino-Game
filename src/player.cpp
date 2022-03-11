@@ -7,11 +7,11 @@ Player::Player(int xPos = 50)
 {
     m_rect = new sf::RectangleShape();
     m_rect->setFillColor(sf::Color::White);
-    m_rect->setPosition(sf::Vector2f(10, HEIGHT/2));
+    m_rect->setPosition(sf::Vector2f(50, HEIGHT-175));
     m_rect->setSize(sf::Vector2f(PLAYER_WIDTH, PLAYER_HEIGHT));
 
     pos.x = xPos;
-    pos.y = HEIGHT/2;
+    pos.y = HEIGHT-175;
     yAccel = 10;
 }
 
