@@ -60,6 +60,7 @@ Application::Application()
 
 int Application::run()
 {
+    // Game loop
     while(m_window->isOpen()) {
         handleEvents();
         update();
@@ -88,6 +89,8 @@ void Application::update()
         m_player->yAccel = -4;
         glidePower -= 2;
     }
+
+    // Regenerate glide power
     if(glidePower <= 0)
         glideRegenned = false;
     if(glidePower < 100 && !glideRegenned)
