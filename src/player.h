@@ -3,8 +3,8 @@
 #include <SFML/Graphics.hpp>
 
 #define MOVE_SPEED 5
-#define PLAYER_WIDTH 25 
-#define PLAYER_HEIGHT 75
+#define PLAYER_WIDTH 55.3
+#define PLAYER_HEIGHT 60
 
 class Application;
 
@@ -20,6 +20,7 @@ public:
     sf::Vector2f pos;
     Application* parent;
     sf::RectangleShape* m_rect;
+    sf::Texture* m_dinoTex;
     float yAccel = 0;
 private:
     int jumpPos = 0;

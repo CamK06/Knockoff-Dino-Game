@@ -4,25 +4,26 @@
 Obstacle::Obstacle(int startX)
 {
     rect = new sf::RectangleShape;
-    rect->setSize(sf::Vector2f(25, 50));
+    rect->setSize(sf::Vector2f(30, 50));
     rect->setPosition(sf::Vector2f(WIDTH + 25 + startX, HEIGHT - 100 - rect->getSize().y));
-    rect->setFillColor(sf::Color::White);
+    rect->setFillColor(sf::Color::Black);
     pos = rect->getPosition();
     resetDist = random(256, 2048);
-    //rect->setFillColor(sf::Color(random(0, 255), random(0, 255), random(0, 255)));
+    tex = new sf::Texture;
+    tex->loadFromFile("res/cacti.png");
+    rect->setTexture(tex);
 }
 
 void Obstacle::update()
 {
     pos.x -= parent->speed;
-    if (pos.x + 25 <= 0-resetDist) {
-        pos.x = WIDTH + 25;
+    if (pos.x + 30 <= 0-resetDist) {
+        pos.x = WIDTH + 30;
         resetDist = random(256, 1024);
-        //rect->setFillColor(sf::Color(random(0, 255), random(0, 255), random(0, 255)));
     }
     rect->setPosition(pos);
 
-    if (player->pos.x + PLAYER_WIDTH >= pos.x && player->pos.x <= pos.x + 25 && 
+    if (player->pos.x + PLAYER_WIDTH >= pos.x && player->pos.x <= pos.x + 30 && 
         player->pos.y + PLAYER_HEIGHT >= pos.y) {
         parent->gameOver();
     }

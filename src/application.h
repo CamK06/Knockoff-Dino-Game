@@ -28,6 +28,7 @@ private:
     sf::Font* m_comicSans;
     sf::Text* m_scoreText;
     sf::Text* m_gameOverText;
+    sf::Texture* m_floorTex;
     sf::RectangleShape* m_floorRect;
     sf::RectangleShape* m_glideBar;
     sf::RectangleShape* m_glideBarBg;

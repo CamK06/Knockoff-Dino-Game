@@ -23,18 +23,20 @@ Application::Application()
     m_scoreText->setFont(*m_comicSans);
     m_scoreText->setString("0");
     m_scoreText->setCharacterSize(96);
-    m_scoreText->setFillColor(sf::Color::White);
+    m_scoreText->setFillColor(sf::Color::Black);
     m_scoreText->setPosition(WIDTH/2, 32);
+    m_floorTex = new sf::Texture;
+    m_floorTex->loadFromFile("res/floor.png");
     m_floorRect = new sf::RectangleShape;
     m_floorRect->setPosition(0, HEIGHT-100);
-    m_floorRect->setFillColor(sf::Color(128, 128, 128));
-    m_floorRect->setSize(sf::Vector2f(WIDTH, 100));
+    m_floorRect->setSize(sf::Vector2f(m_floorTex->getSize().x, 73));
+    m_floorRect->setTexture(m_floorTex);
     updateScore();
     m_gameOverText = new sf::Text;
     m_gameOverText->setFont(*m_comicSans);
     m_gameOverText->setString("Press space to start");
     m_gameOverText->setCharacterSize(100);
-    m_gameOverText->setFillColor(sf::Color::White);
+    m_gameOverText->setFillColor(sf::Color::Black);
     m_gameOverText->setPosition(WIDTH/2, HEIGHT/2);
     sf::FloatRect textSize = m_gameOverText->getLocalBounds();
     m_gameOverText->setOrigin(textSize.left + textSize.width/2.0f, textSize.top + textSize.height/2.0f);
@@ -46,7 +48,7 @@ Application::Application()
     m_glideBarBg = new sf::RectangleShape;
     m_glideBarBg->setPosition(25, 25);
     m_glideBarBg->setSize(sf::Vector2f(29, 104));
-    m_glideBarBg->setFillColor(sf::Color::White);
+    m_glideBarBg->setFillColor(sf::Color(0, 0, 0, 128));
     
 
     // Initialize obstacles
@@ -101,11 +103,16 @@ void Application::update()
         glidePower += 0.5f;
     else if(glidePower >= 100 && !glideRegenned)
         glideRegenned = true;
+
+    // Floor movement
+    m_floorRect->setPosition(m_floorRect->getPosition().x-speed, m_floorRect->getPosition().y);
+    if(m_floorRect->getPosition().x <= -1800)
+        m_floorRect->setPosition(0, HEIGHT-100);
 }
 
 void Application::render()
 {
-    m_window->clear(sf::Color::Black);
+    m_window->clear(sf::Color::White);
 
     // Render UI
     m_window->draw(*m_glideBarBg);
@@ -128,14 +135,14 @@ void Application::gameOver()
     // This code isn't great but it works
     updateScore();
     for(int i = 0; i < 3; i++) {
-        m_player->m_rect->setFillColor(sf::Color::White);
-        render();
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
         m_player->m_rect->setFillColor(sf::Color::Black);
         render();
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        m_player->m_rect->setFillColor(sf::Color::White);
+        render();
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
     }
-    m_player->m_rect->setFillColor(sf::Color::White);
+    m_player->m_rect->setFillColor(sf::Color::Black);
     render();
 
     // Game over loop (this sucks but whatever)

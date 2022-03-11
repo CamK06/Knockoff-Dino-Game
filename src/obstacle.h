@@ -14,6 +14,7 @@ public:
 
     Application* parent;
     sf::RectangleShape* rect;
+    sf::Texture* tex;
     Player* player;
 private:
     sf::Vector2f pos;
